@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 export default function Home({ data }) {
 
   return (
-    <div class="main-bg w-full h-screen bg-gray-200 grid justify-center content-center">
+    <div className="main-bg w-full h-screen bg-gray-200 grid justify-center content-center">
       <Card data={data} />
     </div>
   )

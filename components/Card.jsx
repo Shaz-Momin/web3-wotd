@@ -20,7 +20,7 @@ const Card = ({ dat }) => {
                 <div className="text-4xl font-semibold text-indigo-800">{data.term}</div>
                 <div className="italic font-semibold text-emerald-700">{data.grammar}</div>
             </div>
-            <div class="text-lg tracking-wide font-light px-8 pb-6 text-center">{data.definition}</div>
+            <div className="text-lg tracking-wide font-light px-8 pb-6 text-center">{data.definition}</div>
         </div>
     )
 }
