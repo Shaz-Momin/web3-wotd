@@ -1,11 +1,12 @@
 import Card from '../components/Card'
 import { useEffect } from 'react'
 
-export default function Home({ data }) {
+export default function Home({ termInfo }) {
+  console.log(termInfo)
 
   return (
     <div className="main-bg w-full h-screen bg-gray-200 grid justify-center content-center">
-      <Card data={data} />
+      <Card wotdInfo={termInfo} />
     </div>
   )
 }
@@ -17,10 +18,12 @@ export async function getServerSideProps() {
   const index = Math.floor(Math.random() * 125);
   const res = await fetch('https://web3-wotd.vercel.app/api/terms')
   const data = await res.json()
+  
+  const termInfo = data['terms'][index]
 
   return {
     props: {
-      data
+      termInfo
     }
   }
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const Card = ({ dat }) => {
+const Card = ({ wotdInfo }) => {
     const [date, setDate] = useState(new Date().toLocaleDateString())
     const [data, setData] = useState({
         term: "blockchain",
@@ -11,7 +11,8 @@ const Card = ({ dat }) => {
 
     useEffect(() => {
         setDate(new Date())
-    }, [])    
+        setData(wotdInfo)
+    }, [])
 
     return (
         <div className="bg-white border-none p-5 rounded-xl h-auto ml-[6%] mr-[6%] md:mx-0 items-center sm:max-w-sm shadow-md">
