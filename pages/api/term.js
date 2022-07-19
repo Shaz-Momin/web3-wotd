@@ -2,7 +2,7 @@
 import path from 'path';
 import { promises as fs } from 'fs';
 
-let currentTime = 35
+let currentTime = 18
 let randomNum = 0
 
 export default async function handler(req, res) {
@@ -15,8 +15,8 @@ export default async function handler(req, res) {
 
   // Gets a random term from the list (json)
   var index = randomNum
-  if (currentTime != new Date().getMinutes()) {
-    currentTime = new Date().getMinutes()
+  if (currentTime != new Date().getDate()) {
+    currentTime = new Date().getDate()
     index = Math.floor(Math.random() * 125);
     randomNum = index
   }
