@@ -16,10 +16,8 @@ export default function Home({ termInfo }) {
 export async function getServerSideProps() {
 
   const index = Math.floor(Math.random() * 125);
-  const res = await fetch('https://web3-wotd.vercel.app/api/terms')
-  const data = await res.json()
-  
-  const termInfo = data['terms'][index]
+  const res = await fetch('https://web3-wotd.vercel.app/api/term')
+  const termInfo = await res.json()
 
   return {
     props: {
