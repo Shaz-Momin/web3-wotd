@@ -2,8 +2,6 @@ import Card from '../components/Card'
 import { useEffect } from 'react'
 
 export default function Home({ termInfo }) {
-  console.log(termInfo)
-
   return (
     <div className="main-bg w-full h-screen bg-gray-200 grid justify-center content-center">
       <Card wotdInfo={termInfo} />

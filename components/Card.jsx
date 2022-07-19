@@ -15,7 +15,7 @@ const Card = ({ wotdInfo }) => {
     }, [])
 
     return (
-        <div className="bg-white border-none p-5 rounded-xl h-auto ml-[6%] mr-[6%] md:mx-0 items-center sm:max-w-sm shadow-md">
+        <div className="bg-white border-none p-5 rounded-xl h-auto ml-[6%] mr-[6%] md:mx-0 items-center sm:max-w-sm md:max-w-md shadow-md">
             <div className="text-center text-md text-gray-600 tracking-wide">{date.toLocaleString('en-US', options).replace(/,/,"")}</div>
             <div className="p-8 text-center">
                 <div className="text-4xl font-semibold text-indigo-800">{data.term}</div>
