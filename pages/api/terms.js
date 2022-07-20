@@ -13,15 +13,6 @@ export default async function handler(req, res) {
   const fileContents = await fs.readFile(jsonDirectory + '/web3terms.json', 'utf8');
   const termsObj = JSON.parse(fileContents)
 
-  // Gets a random term from the list (json)
-  var index = randomNum
-  if (currentTime != new Date().getDate()) {
-    currentTime = new Date().getDate()
-    index = Math.floor(Math.random() * 125);
-    randomNum = index
-  }
-  const termInfo = termsObj['terms'][index]
-
   // Return the content of the data file in json format
-  res.status(200).json(termInfo);
+  res.status(200).json(termsObj);
 }
