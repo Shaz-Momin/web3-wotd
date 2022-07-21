@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <div className="main-bg w-full h-screen bg-gray-200 grid justify-center content-center">
-      {data && <Card data={data} setData={setData} />}
+      {data['term'] && <Card data={data} setData={setData} />}
     </div>
   )
 }
@@ -35,6 +35,9 @@ const getData = async () => {
     termInfo = terms['terms'][index]
     termInfo['date'] = new Date().toDateString()
     termInfo['upvoted'] = 0
+
+    // remove upvoted token from last time (if exists)
+    localStorage.removeItem("upvoted")
 
     // Adding a new entry for today's term
     await setDoc(doc(db, "stats", new Date().toDateString()), termInfo);

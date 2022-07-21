@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { doc, setDoc } from "firebase/firestore"; 
 import { AiFillFire } from 'react-icons/ai'
 import { db } from '../config/firebase'
+import millify from "millify";
+
 
 const Card = ({ data, setData }) => {
     const [upvoted, setUpvoted] = useState(false)
@@ -64,7 +66,7 @@ const Card = ({ data, setData }) => {
             <div className="text-center text-md text-gray-600 tracking-wide">{date.toLocaleString('en-US', options).replace(/,/,"")}</div>
             <div className="p-8 text-center">
                 <div className="text-4xl font-semibold text-indigo-800">{data.term}</div>
-                <div className="italic font-semibold text-emerald-700">{data.grammar}</div>
+                <div className="italic text-lg font-semibold text-emerald-800">{data.grammar}</div>
             </div>
             <div className="text-lg tracking-wide font-light px-8 pb-6 text-center">{data.definition}</div>
             <div className="text-sm flex justify-between px-8 items-center pb-4">
@@ -73,7 +75,7 @@ const Card = ({ data, setData }) => {
                     className={upvoted ? activated : deactivated}>
                     <AiFillFire size={25} />
                 </button>
-                <div className="font-light pl-6">{data.upvoted != 1 ? data.upvoted + " people found this term interesting" : 
+                <div className="font-light italic pl-6">{data.upvoted != 1 ? millify(data.upvoted, {precision: 3}) + " people found this term interesting" : 
                     data.upvoted + " person found this term interesting"}</div>
             </div>
         </div>
