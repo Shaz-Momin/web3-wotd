@@ -8,6 +8,9 @@ const Card = ({ data, setData }) => {
     const [date, setDate] = useState(new Date().toLocaleDateString())
     const options = {weekday: 'long', day: '2-digit', year: 'numeric', month: 'long' }
 
+    const activated = "bg-transparent bg-indigo-800  font-semibold text-white py-1.5 px-3 border border-indigo-800 hover:border-transparent rounded"
+    const deactivated = "bg-transparent hover:bg-indigo-400 text-indigo-800 font-semibold hover:text-white py-1.5 px-3 border border-indigo-800 hover:border-transparent rounded"
+
     const handleUpvote = async (e) => {
         e.preventDefault()
         if (new Date().toDateString() != data.date) {
@@ -67,7 +70,7 @@ const Card = ({ data, setData }) => {
             <div className="text-sm flex justify-between px-8 items-center pb-4">
                 <button
                     onClick={handleUpvote}
-                    className="bg-transparent hover:bg-indigo-800 text-indigo-800 font-semibold hover:text-white py-1.5 px-3 border border-indigo-800 hover:border-transparent rounded">
+                    className={upvoted ? activated : deactivated}>
                     <AiFillFire size={25} />
                 </button>
                 <div className="font-light pl-6">{data.upvoted != 1 ? data.upvoted + " people found this term interesting" : 
