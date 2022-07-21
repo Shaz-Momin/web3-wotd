@@ -1,18 +1,60 @@
 import React, { useState, useEffect } from 'react'
+import { doc, setDoc } from "firebase/firestore"; 
+import { AiFillFire } from 'react-icons/ai'
+import { db } from '../config/firebase'
 
-const Card = ({ wotdInfo }) => {
+const Card = ({ data, setData }) => {
+    const [upvoted, setUpvoted] = useState(false)
     const [date, setDate] = useState(new Date().toLocaleDateString())
-    const [data, setData] = useState({
-        term: "blockchain",
-        grammar: "noun",
-        definition: "a system in which a record of transactions made in bitcoin or another cryptocurrency are maintained across several computers that are linked in a peer-to-peer network"
-    })
     const options = {weekday: 'long', day: '2-digit', year: 'numeric', month: 'long' }
+
+    const handleUpvote = async (e) => {
+        e.preventDefault()
+        if (new Date().toDateString() != data.date) {
+            // outdated data, refresh the page for new data (term)
+            window.location.reload()
+        } else {
+            var votes = data.upvoted
+            if (upvoted) {
+                setUpvoted(false)
+                localStorage.removeItem("upvoted")
+                votes--
+            } else {
+                setUpvoted(true)
+                localStorage.setItem("upvoted", true)
+                votes++
+            }
+            setData({
+                term: data.term,
+                grammar: data.grammar,
+                definition: data.definition,
+                upvoted: votes,
+                date: data.date
+            })
+        }
+    }
+
+    const upvote = async () => {
+        await setDoc(doc(db, "stats", new Date().toDateString()), data);
+    }
 
     useEffect(() => {
         setDate(new Date())
-        setData(wotdInfo)
+        const userClicked = localStorage.getItem("upvoted")
+        if (userClicked) {
+            setUpvoted(true)
+        } else {
+            setUpvoted(false)
+        }
     }, [])
+
+    useEffect(() => {
+        if (data['term']) {
+            // if data exists, update upvote
+            upvote()
+        }
+    }, [data])
+
 
     return (
         <div className="bg-white border-none p-5 rounded-xl h-auto ml-[6%] mr-[6%] md:mx-0 items-center sm:max-w-sm md:max-w-md shadow-md">
@@ -22,6 +64,15 @@ const Card = ({ wotdInfo }) => {
                 <div className="italic font-semibold text-emerald-700">{data.grammar}</div>
             </div>
             <div className="text-lg tracking-wide font-light px-8 pb-6 text-center">{data.definition}</div>
+            <div className="text-sm flex justify-between px-8 items-center pb-4">
+                <button
+                    onClick={handleUpvote}
+                    className="bg-transparent hover:bg-indigo-800 text-indigo-800 font-semibold hover:text-white py-1.5 px-3 border border-indigo-800 hover:border-transparent rounded">
+                    <AiFillFire size={25} />
+                </button>
+                <div className="font-light pl-6">{data.upvoted != 1 ? data.upvoted + " people found this term interesting" : 
+                    data.upvoted + " person found this term interesting"}</div>
+            </div>
         </div>
     )
 }
