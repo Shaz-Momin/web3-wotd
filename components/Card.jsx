@@ -23,6 +23,7 @@ const Card = ({ data, setData }) => {
             if (upvoted) {
                 setUpvoted(false)
                 localStorage.removeItem("upvoted")
+                localStorage.clear()
                 votes--
             } else {
                 setUpvoted(true)
